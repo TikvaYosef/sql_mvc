@@ -187,7 +187,7 @@ namespace Office
         }
 
 
-        void Updatemaneger(string stringCollection, int id)
+        void Updatemaneger(string stringCollection)
         {
             Console.WriteLine("Enter ID");
             int ID = int.Parse(Console.ReadLine());
@@ -206,13 +206,32 @@ namespace Office
             using (SqlConnection connection = new SqlConnection(stringCollection))
             {
                 string query = $@"UPDATE Employyes SET (fname= {fname},lname = {lname},birthday = {birthday},email={email},classs={classs})                    
-                                WHERE{ID == id}";
+                                WHERE Id = {ID}";
                 SqlCommand command = new SqlCommand(query, connection);
                 int rowEffected = command.ExecuteNonQuery();
                 Console.WriteLine(rowEffected);
 
 
 
+            }
+
+        }
+
+        public static void DeleteManeger(string stringCollection, int ID)
+        {
+
+
+
+            using (SqlConnection connection = new SqlConnection(stringCollection))
+            {
+
+                connection.Open();
+                string query = $@"DELETE FROM maneger                    
+                                WHERE Id = {ID}";
+                SqlCommand command = new SqlCommand(query, connection);
+                int rowEffected = command.ExecuteNonQuery();
+                Console.WriteLine(rowEffected);
+                connection.Close();
             }
 
         }
