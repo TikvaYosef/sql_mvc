@@ -16,8 +16,9 @@ namespace Office
             //List<Maneger> manegerList = new List<Maneger>();
 
             //addEmployye(stringCollection);
-            UpdateFromUser(stringCollection,id)
-
+            //UpdateFromUser(stringCollection,id)
+            //UpdateFromUser(stringCollection);
+            //DeleteEmployye(stringCollection, 2);
 
 
 
@@ -77,7 +78,7 @@ namespace Office
 
         }
 
-        void UpdateFromUser(string stringCollection, int id)
+       public static void  UpdateFromUser(string stringCollection)
         {
 
             Console.WriteLine("Enter ID");
@@ -94,21 +95,37 @@ namespace Office
 
             using (SqlConnection connection = new SqlConnection(stringCollection))
             {
-                string query = $@"UPDATE Employyes SET (name= {name},birthday = {birthday},email={email},salery={salery})                    
-                                WHERE{ID == id}";
+
+                connection.Open();
+                string query = $@"UPDATE Employyes SET name = '{name}',birthday = '{birthday}',email= '{email}',salery= {salery}                   
+                                WHERE Id = {ID}";
                 SqlCommand command = new SqlCommand(query, connection);
                 int rowEffected = command.ExecuteNonQuery();
                 Console.WriteLine(rowEffected);
-
-
-
+                connection.Close();
             }
 
         }
-        void DeleteEmployee()
+
+       public  static void DeleteEmployye(string stringCollection,int ID)
         {
+        
+           
+
+            using (SqlConnection connection = new SqlConnection(stringCollection))
+            {
+
+                connection.Open();
+                string query = $@"DELETE FROM Employyes                    
+                                WHERE Id = {ID}";
+                SqlCommand command = new SqlCommand(query, connection);
+                int rowEffected = command.ExecuteNonQuery();
+                Console.WriteLine(rowEffected);
+                connection.Close();
+            }
 
         }
+       
 
         //===============================================================
 
